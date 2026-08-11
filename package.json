@@ -40,7 +40,7 @@
 
     "win": {
       "target": "nsis",
-      "icon": "renderer/img/icon.ico"
+      "icon": "electron/assets/icon.ico"
     },
 
     "nsis": {

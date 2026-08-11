@@ -315,10 +315,36 @@ btnReset.addEventListener(
 // VERSÃO
 // ========================================
 
-document.getElementById(
-    "versao"
-).textContent =
-    "PIU! v1.0.0";
+async function carregarVersao() {
+
+    try {
+
+        const versao =
+            await window.electronAPI
+                .obterVersao();
+
+
+        document.getElementById(
+            "versao"
+        ).textContent =
+            `PIU! v${versao}`;
+
+    }
+    catch (erro) {
+
+        console.error(
+            "Erro ao carregar versão:",
+            erro
+        );
+
+        document.getElementById(
+            "versao"
+        ).textContent =
+            "PIU!";
+
+    }
+
+}
 
 
 // ========================================
@@ -326,3 +352,5 @@ document.getElementById(
 // ========================================
 
 carregar();
+
+carregarVersao();

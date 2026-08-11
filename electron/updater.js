@@ -1,6 +1,10 @@
 const { autoUpdater } = require("electron-updater");
 
+
+// Permite testar o updater durante o desenvolvimento.
+// Em produção isso não atrapalha.
 autoUpdater.forceDevUpdateConfig = true;
+
 
 let janela = null;
 let abrirAplicacao = null;
@@ -19,18 +23,40 @@ function iniciarAtualizador(
 
     // Evita iniciar duas vezes
     if (atualizadorIniciado) {
+
+        console.log(
+            "UPDATER: já foi iniciado."
+        );
+
         return;
+
     }
+
 
     atualizadorIniciado = true;
 
+
     janela = win;
+
     abrirAplicacao =
         callbackAbrirAplicacao;
 
 
     console.log(
+        "================================"
+    );
+
+    console.log(
         "UPDATER: iniciado."
+    );
+
+    console.log(
+        "Versão atual:",
+        require("electron").app.getVersion()
+    );
+
+    console.log(
+        "================================"
     );
 
 
@@ -52,12 +78,14 @@ function iniciarAtualizador(
         () => {
 
             console.log(
-                "UPDATER: verificando..."
+                "UPDATER: verificando atualizações..."
             );
+
 
             enviarStatus(
                 "Verificando atualização..."
             );
+
 
             enviarProgresso(10);
 
@@ -74,13 +102,32 @@ function iniciarAtualizador(
         (info) => {
 
             console.log(
-                "UPDATER: nova versão:",
+                "================================"
+            );
+
+            console.log(
+                "UPDATER: NOVA VERSÃO ENCONTRADA"
+            );
+
+            console.log(
+                "Versão atual:",
+                require("electron").app.getVersion()
+            );
+
+            console.log(
+                "Nova versão:",
                 info.version
             );
+
+            console.log(
+                "================================"
+            );
+
 
             enviarStatus(
                 "Nova versão encontrada..."
             );
+
 
             enviarProgresso(20);
 
@@ -94,15 +141,30 @@ function iniciarAtualizador(
 
     autoUpdater.on(
         "update-not-available",
-        () => {
+        (info) => {
 
             console.log(
-                "UPDATER: PIU já está atualizado."
+                "================================"
             );
+
+            console.log(
+                "UPDATER: NENHUMA ATUALIZAÇÃO"
+            );
+
+            console.log(
+                "Versão atual:",
+                require("electron").app.getVersion()
+            );
+
+            console.log(
+                "================================"
+            );
+
 
             enviarStatus(
                 "PIU! está atualizado."
             );
+
 
             enviarProgresso(100);
 
@@ -111,7 +173,7 @@ function iniciarAtualizador(
 
                 abrirSistema();
 
-            }, 500);
+            }, 700);
 
         }
     );
@@ -126,13 +188,17 @@ function iniciarAtualizador(
         (info) => {
 
             const progresso =
-                Math.round(
-                    info.percent
+                Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        Math.round(info.percent)
+                    )
                 );
 
 
             console.log(
-                "UPDATER:",
+                "UPDATER: download:",
                 progresso + "%"
             );
 
@@ -156,10 +222,28 @@ function iniciarAtualizador(
 
     autoUpdater.on(
         "update-downloaded",
-        () => {
+        (info) => {
 
             console.log(
-                "UPDATER: atualização baixada."
+                "================================"
+            );
+
+            console.log(
+                "UPDATER: ATUALIZAÇÃO BAIXADA!"
+            );
+
+            console.log(
+                "Versão atual:",
+                require("electron").app.getVersion()
+            );
+
+            console.log(
+                "Versão baixada:",
+                info.version
+            );
+
+            console.log(
+                "================================"
             );
 
 
@@ -173,12 +257,32 @@ function iniciarAtualizador(
 
             setTimeout(() => {
 
-                autoUpdater.quitAndInstall(
-                    false,
-                    true
+                console.log(
+                    "UPDATER: executando quitAndInstall..."
                 );
 
-            }, 1000);
+
+                try {
+
+                    autoUpdater.quitAndInstall(
+                        false,
+                        true
+                    );
+
+                }
+                catch (erro) {
+
+                    console.error(
+                        "UPDATER: erro ao instalar:",
+                        erro
+                    );
+
+
+                    abrirSistema();
+
+                }
+
+            }, 1500);
 
         }
     );
@@ -193,8 +297,19 @@ function iniciarAtualizador(
         (erro) => {
 
             console.error(
-                "UPDATER: erro:",
+                "================================"
+            );
+
+            console.error(
+                "UPDATER: ERRO"
+            );
+
+            console.error(
                 erro
+            );
+
+            console.error(
+                "================================"
             );
 
 
@@ -215,7 +330,7 @@ function iniciarAtualizador(
 
                 abrirSistema();
 
-            }, 500);
+            }, 700);
 
         }
     );
@@ -224,6 +339,11 @@ function iniciarAtualizador(
     // ========================================
     // COMEÇAR VERIFICAÇÃO
     // ========================================
+
+    console.log(
+        "UPDATER: chamando checkForUpdates()..."
+    );
+
 
     autoUpdater.checkForUpdates();
 
@@ -236,12 +356,24 @@ function iniciarAtualizador(
 
 function abrirSistema() {
 
+    console.log(
+        "UPDATER: liberando abertura do PIU..."
+    );
+
+
     if (
         typeof abrirAplicacao ===
         "function"
     ) {
 
         abrirAplicacao();
+
+    }
+    else {
+
+        console.error(
+            "UPDATER: abrirAplicacao não é uma função!"
+        );
 
     }
 
@@ -292,9 +424,19 @@ function enviarProgresso(
     }
 
 
+    const valor =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                Number(porcentagem) || 0
+            )
+        );
+
+
     janela.webContents.send(
         "update-progress",
-        porcentagem
+        valor
     );
 
 }

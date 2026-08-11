@@ -7,22 +7,72 @@ const progresso =
 const porcentagem =
     document.getElementById("porcentagem");
 
+const versao =
+    document.getElementById("versao");
+
+
+// ========================================
+// ATUALIZAR BARRA
+// ========================================
 
 function atualizar(
     mensagem,
     valor
 ) {
 
+    const percentual =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                Number(valor) || 0
+            )
+        );
+
+
     status.textContent =
         mensagem;
 
 
     progresso.style.width =
-        valor + "%";
+        percentual + "%";
 
 
     porcentagem.textContent =
-        valor + "%";
+        percentual + "%";
+
+}
+
+
+// ========================================
+// CARREGAR VERSÃO
+// ========================================
+
+async function carregarVersao() {
+
+    try {
+
+        const numeroVersao =
+            await window.electronAPI
+                .obterVersao();
+
+
+        versao.textContent =
+            `PIU! v${numeroVersao}`;
+
+    }
+    catch (erro) {
+
+        console.error(
+            "Erro ao carregar versão:",
+            erro
+        );
+
+
+        versao.textContent =
+            "PIU!";
+
+    }
 
 }
 
@@ -59,3 +109,10 @@ window.electronAPI.onUpdateProgress(
 
     }
 );
+
+
+// ========================================
+// INICIAR
+// ========================================
+
+carregarVersao();

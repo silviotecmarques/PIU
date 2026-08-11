@@ -131,6 +131,19 @@ ipcMain.handle(
     }
 );
 
+// ========================================
+// OBTER VERSÃO
+// ========================================
+
+ipcMain.handle(
+    "obter-versao",
+    () => {
+
+        return app.getVersion();
+
+    }
+);
+
 
 // ========================================
 // RESETAR DISPOSITIVO
