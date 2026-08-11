@@ -4,14 +4,18 @@ const barra =
 const texto =
     document.getElementById("textoAtualizacao");
 
+
 window.updater.onStatus((mensagem) => {
 
-    texto.textContent = mensagem;
+    texto.textContent =
+        mensagem;
 
 });
 
+
 window.updater.onProgress((porcentagem) => {
 
-    barra.value = porcentagem;
+    barra.value =
+        porcentagem;
 
 });

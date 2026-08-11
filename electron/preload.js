@@ -8,6 +8,10 @@ contextBridge.exposeInMainWorld(
     "electronAPI",
     {
 
+        // ========================================
+        // DISPOSITIVO
+        // ========================================
+
         salvarDispositivo: (dispositivo) => {
 
             return ipcRenderer.invoke(
@@ -31,6 +35,38 @@ contextBridge.exposeInMainWorld(
 
             return ipcRenderer.invoke(
                 "limpar-dispositivo"
+            );
+
+        },
+
+
+        // ========================================
+        // ATUALIZAÇÃO
+        // ========================================
+
+        onUpdateStatus: (callback) => {
+
+            ipcRenderer.on(
+                "update-status",
+                (event, mensagem) => {
+
+                    callback(mensagem);
+
+                }
+            );
+
+        },
+
+
+        onUpdateProgress: (callback) => {
+
+            ipcRenderer.on(
+                "update-progress",
+                (event, progresso) => {
+
+                    callback(progresso);
+
+                }
             );
 
         }

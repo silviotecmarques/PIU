@@ -16,8 +16,10 @@ function atualizar(
     status.textContent =
         mensagem;
 
+
     progresso.style.width =
         valor + "%";
+
 
     porcentagem.textContent =
         valor + "%";
@@ -25,70 +27,35 @@ function atualizar(
 }
 
 
-async function iniciar() {
+// ========================================
+// STATUS DO UPDATER
+// ========================================
 
-    atualizar(
-        "Iniciando PIU!...",
-        15
-    );
+window.electronAPI.onUpdateStatus(
+    (mensagem) => {
 
+        atualizar(
+            mensagem,
+            parseInt(
+                porcentagem.textContent
+            ) || 0
+        );
 
-    await esperar(500);
-
-
-    atualizar(
-        "Carregando sistema...",
-        35
-    );
-
-
-    await esperar(500);
+    }
+);
 
 
-    atualizar(
-        "Verificando atualizações...",
-        60
-    );
+// ========================================
+// PROGRESSO DO UPDATER
+// ========================================
 
+window.electronAPI.onUpdateProgress(
+    (valor) => {
 
-    await esperar(800);
+        atualizar(
+            "Baixando atualização...",
+            valor
+        );
 
-
-    atualizar(
-        "Carregando dispositivo...",
-        85
-    );
-
-
-    await esperar(500);
-
-
-    atualizar(
-        "Pronto!",
-        100
-    );
-
-
-    await esperar(300);
-
-
-    window.location.href =
-        "entrada.html";
-
-}
-
-
-function esperar(ms) {
-
-    return new Promise(
-        resolve =>
-            setTimeout(
-                resolve,
-                ms
-            )
-    );
-
-}
-
-
-iniciar();
+    }
+);

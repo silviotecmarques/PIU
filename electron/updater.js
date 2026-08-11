@@ -1,60 +1,308 @@
 const { autoUpdater } = require("electron-updater");
 
-function iniciarAtualizador(win) {
+autoUpdater.forceDevUpdateConfig = true;
+
+let janela = null;
+let abrirAplicacao = null;
+
+let atualizadorIniciado = false;
+
+
+// ========================================
+// INICIAR ATUALIZADOR
+// ========================================
+
+function iniciarAtualizador(
+    win,
+    callbackAbrirAplicacao
+) {
+
+    // Evita iniciar duas vezes
+    if (atualizadorIniciado) {
+        return;
+    }
+
+    atualizadorIniciado = true;
+
+    janela = win;
+    abrirAplicacao =
+        callbackAbrirAplicacao;
+
+
+    console.log(
+        "UPDATER: iniciado."
+    );
+
+
+    // ========================================
+    // CONFIGURAÇÃO
+    // ========================================
 
     autoUpdater.autoDownload = true;
+
     autoUpdater.autoInstallOnAppQuit = true;
 
-    autoUpdater.on("checking-for-update", () => {
-        console.log("Verificando atualizações...");
-    });
 
-    autoUpdater.on("update-available", (info) => {
+    // ========================================
+    // VERIFICANDO
+    // ========================================
 
-        console.log("Nova versão encontrada:", info.version);
+    autoUpdater.on(
+        "checking-for-update",
+        () => {
 
-        win.webContents.send(
-            "update-status",
-            "Baixando atualização..."
-        );
+            console.log(
+                "UPDATER: verificando..."
+            );
 
-    });
+            enviarStatus(
+                "Verificando atualização..."
+            );
 
-    autoUpdater.on("update-not-available", () => {
+            enviarProgresso(10);
 
-        console.log("Aplicativo atualizado.");
+        }
+    );
 
-    });
 
-    autoUpdater.on("download-progress", (progress) => {
+    // ========================================
+    // NOVA VERSÃO
+    // ========================================
 
-        win.webContents.send(
-            "update-progress",
-            Math.round(progress.percent)
-        );
+    autoUpdater.on(
+        "update-available",
+        (info) => {
 
-    });
+            console.log(
+                "UPDATER: nova versão:",
+                info.version
+            );
 
-    autoUpdater.on("update-downloaded", () => {
+            enviarStatus(
+                "Nova versão encontrada..."
+            );
 
-        win.webContents.send(
-            "update-status",
-            "Atualização pronta."
-        );
+            enviarProgresso(20);
 
-        autoUpdater.quitAndInstall();
+        }
+    );
 
-    });
 
-    autoUpdater.on("error", (err) => {
+    // ========================================
+    // NENHUMA ATUALIZAÇÃO
+    // ========================================
 
-        console.error(err);
+    autoUpdater.on(
+        "update-not-available",
+        () => {
 
-    });
+            console.log(
+                "UPDATER: PIU já está atualizado."
+            );
 
-    autoUpdater.checkForUpdatesAndNotify();
+            enviarStatus(
+                "PIU! está atualizado."
+            );
+
+            enviarProgresso(100);
+
+
+            setTimeout(() => {
+
+                abrirSistema();
+
+            }, 500);
+
+        }
+    );
+
+
+    // ========================================
+    // DOWNLOAD
+    // ========================================
+
+    autoUpdater.on(
+        "download-progress",
+        (info) => {
+
+            const progresso =
+                Math.round(
+                    info.percent
+                );
+
+
+            console.log(
+                "UPDATER:",
+                progresso + "%"
+            );
+
+
+            enviarStatus(
+                "Baixando atualização..."
+            );
+
+
+            enviarProgresso(
+                progresso
+            );
+
+        }
+    );
+
+
+    // ========================================
+    // ATUALIZAÇÃO BAIXADA
+    // ========================================
+
+    autoUpdater.on(
+        "update-downloaded",
+        () => {
+
+            console.log(
+                "UPDATER: atualização baixada."
+            );
+
+
+            enviarStatus(
+                "Atualização pronta!"
+            );
+
+
+            enviarProgresso(100);
+
+
+            setTimeout(() => {
+
+                autoUpdater.quitAndInstall(
+                    false,
+                    true
+                );
+
+            }, 1000);
+
+        }
+    );
+
+
+    // ========================================
+    // ERRO
+    // ========================================
+
+    autoUpdater.on(
+        "error",
+        (erro) => {
+
+            console.error(
+                "UPDATER: erro:",
+                erro
+            );
+
+
+            /*
+             * O updater nunca deve impedir
+             * o PIU de abrir.
+             */
+
+            enviarStatus(
+                "Iniciando PIU!..."
+            );
+
+
+            enviarProgresso(100);
+
+
+            setTimeout(() => {
+
+                abrirSistema();
+
+            }, 500);
+
+        }
+    );
+
+
+    // ========================================
+    // COMEÇAR VERIFICAÇÃO
+    // ========================================
+
+    autoUpdater.checkForUpdates();
 
 }
+
+
+// ========================================
+// ABRIR SISTEMA
+// ========================================
+
+function abrirSistema() {
+
+    if (
+        typeof abrirAplicacao ===
+        "function"
+    ) {
+
+        abrirAplicacao();
+
+    }
+
+}
+
+
+// ========================================
+// ENVIAR STATUS
+// ========================================
+
+function enviarStatus(
+    mensagem
+) {
+
+    if (
+        !janela ||
+        janela.isDestroyed()
+    ) {
+
+        return;
+
+    }
+
+
+    janela.webContents.send(
+        "update-status",
+        mensagem
+    );
+
+}
+
+
+// ========================================
+// ENVIAR PROGRESSO
+// ========================================
+
+function enviarProgresso(
+    porcentagem
+) {
+
+    if (
+        !janela ||
+        janela.isDestroyed()
+    ) {
+
+        return;
+
+    }
+
+
+    janela.webContents.send(
+        "update-progress",
+        porcentagem
+    );
+
+}
+
+
+// ========================================
+// EXPORTAR
+// ========================================
 
 module.exports = {
     iniciarAtualizador
