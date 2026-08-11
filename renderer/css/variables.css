@@ -1,0 +1,25 @@
+:root{
+
+    --background:#0F172A;
+
+    --card:#1E293B;
+
+    --border:#334155;
+
+    --primary:#38BDF8;
+
+    --primary-hover:#0EA5E9;
+
+    --success:#22C55E;
+
+    --warning:#FACC15;
+
+    --danger:#EF4444;
+
+    --text:#FFFFFF;
+
+    --text-secondary:#CBD5E1;
+
+    --radius:18px;
+
+}

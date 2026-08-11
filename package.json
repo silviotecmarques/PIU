@@ -1,0 +1,58 @@
+{
+  "name": "piu",
+  "version": "2.0.0",
+  "description": "Sistema Inteligente de Chamados",
+  "main": "electron/main.js",
+  "author": "Silvio Ferreira Marques",
+  "license": "MIT",
+
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "build": "electron-builder",
+    "release": "electron-builder --publish always"
+  },
+
+  "dependencies": {
+    "@supabase/supabase-js": "^2.112.0",
+    "electron-store": "^11.0.2",
+    "electron-updater": "^6.8.9"
+  },
+
+  "devDependencies": {
+    "electron": "^39.1.0",
+    "electron-builder": "^26.15.3"
+  },
+
+  "build": {
+    "appId": "br.com.piu.app",
+    "productName": "PIU!",
+
+    "directories": {
+      "output": "dist"
+    },
+
+    "files": [
+      "**/*",
+      "!dist/*",
+      "!node_modules/.cache/*"
+    ],
+
+    "win": {
+      "target": "nsis",
+      "icon": "renderer/img/icon.ico"
+    },
+
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+
+    "publish": {
+      "provider": "github",
+      "owner": "silviotecmarques",
+      "repo": "PIU",
+      "releaseType": "release"
+    }
+  }
+}

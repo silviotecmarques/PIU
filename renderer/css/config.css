@@ -1,0 +1,67 @@
+body{
+
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#0F172A;
+    color:white;
+
+}
+
+.container{
+
+    width:500px;
+    margin:40px auto;
+
+}
+
+label{
+
+    display:block;
+    margin-top:20px;
+
+}
+
+input,
+select{
+
+    width:100%;
+    padding:10px;
+    margin-top:8px;
+    border-radius:8px;
+    border:none;
+
+}
+
+.botoes{
+
+    margin-top:30px;
+    display:flex;
+    gap:10px;
+
+}
+
+button{
+
+    flex:1;
+    padding:12px;
+    cursor:pointer;
+    border:none;
+    border-radius:8px;
+    background:#38BDF8;
+    color:white;
+    font-size:16px;
+
+}
+
+button:hover{
+
+    background:#0EA5E9;
+
+}
+
+#versao{
+
+    margin-top:25px;
+    color:#CBD5E1;
+
+}

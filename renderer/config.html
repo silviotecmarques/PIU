@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>Configurações - PIU!</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+<body>
+
+<div class="container configuracoes">
+
+    <div class="config-header">
+
+        <span class="config-icon">⚙</span>
+
+        <h1>Configurações</h1>
+
+    </div>
+
+
+    <img
+        id="icone"
+        class="logo config-logo"
+        src="img/logo.png"
+        alt="PIU!"
+    >
+
+
+    <div class="campo">
+
+        <label for="nome">
+            Nome do dispositivo
+        </label>
+
+        <input
+            id="nome"
+            type="text"
+            placeholder="Ex: Caixa Frente"
+        >
+
+    </div>
+
+
+    <div class="campo">
+
+        <label for="tipo">
+            Tipo
+        </label>
+
+        <input
+            id="tipo"
+            type="text"
+            disabled
+        >
+
+    </div>
+
+
+    <button id="btnSalvar">
+        SALVAR
+    </button>
+
+
+    <button id="btnTestar">
+        🔔 TESTAR CAMPAINHA
+    </button>
+
+
+    <label class="checkbox">
+
+        <input
+            id="iniciarWindows"
+            type="checkbox"
+        >
+
+        <span>
+            Iniciar com o Windows
+        </span>
+
+    </label>
+
+    <div class="versao" id="versao">
+        PIU! v1.0.0
+    </div>
+
+
+    <button
+        id="btnVoltar"
+        class="btn-secundario"
+    >
+        VOLTAR
+    </button>
+
+
+    <button
+        id="btnReset"
+        class="btn-reset"
+    >
+        RESET
+    </button>
+
+</div>
+
+
+<script src="js/config.js"></script>
+
+</body>
+
+</html>

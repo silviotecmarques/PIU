@@ -1,0 +1,783 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+
+/* =========================================
+   BASE
+========================================= */
+
+body {
+    background: #0F172A;
+    color: #FFFFFF;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   CARTÃO PRINCIPAL
+========================================= */
+
+.container {
+    width: 320px;
+
+    background: #1E293B;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    border: 1px solid #334155;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   TÍTULOS
+========================================= */
+
+h1 {
+    color: #38BDF8;
+
+    margin-bottom: 20px;
+
+    font-size: 30px;
+
+    font-weight: 800;
+}
+
+
+h2 {
+    font-size: 18px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================
+   PASSARINHO
+========================================= */
+
+.logo {
+    width: 120px;
+    height: 120px;
+
+    object-fit: contain;
+
+    display: block;
+
+    margin: 25px auto;
+}
+
+
+/* =========================================
+   NOME DO DISPOSITIVO
+========================================= */
+
+#nomeDispositivo {
+    margin-bottom: 25px;
+
+    font-size: 18px;
+}
+
+
+/* =========================================
+   BOTÃO PIU!
+========================================= */
+
+#btnPiu {
+    width: 100%;
+    height: 55px;
+
+    margin-top: 20px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background: #38BDF8;
+
+    color: #FFFFFF;
+
+    font-size: 22px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background .2s,
+        transform .15s;
+}
+
+
+#btnPiu:hover {
+    background: #0EA5E9;
+}
+
+
+#btnPiu:active {
+    transform: scale(.98);
+}
+
+
+#btnPiu:disabled {
+    background: #64748B;
+
+    cursor: default;
+
+    transform: none;
+}
+
+
+/* =========================================
+   ENGRENAGEM
+========================================= */
+
+.config {
+    width: 34px;
+    height: 34px;
+
+    margin: 14px 0 0 auto;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #94A3B8;
+
+    font-size: 21px;
+
+    line-height: 34px;
+
+    cursor: pointer;
+
+    transition:
+        color .2s,
+        background .2s;
+}
+
+
+.config:hover {
+    color: #38BDF8;
+
+    background: rgba(56, 189, 248, .08);
+}
+
+
+/* =========================================
+   ATUALIZAÇÃO
+========================================= */
+
+/*
+   A barra não fica visível normalmente.
+   Quando houver atualização, podemos
+   mostrar esse componente pelo JavaScript.
+*/
+
+.update-box {
+    display: none;
+
+    width: 100%;
+
+    margin: 15px auto 0;
+
+    text-align: center;
+}
+
+
+.update-box span {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #CBD5E1;
+
+    font-size: 14px;
+}
+
+
+.update-box progress {
+    width: 100%;
+
+    height: 8px;
+}
+
+
+/* =========================================
+   BOTÕES GERAIS
+========================================= */
+
+button {
+    border: none;
+
+    cursor: pointer;
+
+    font-family: inherit;
+}
+
+
+button:hover {
+    opacity: .95;
+}
+
+
+/* =========================================
+   CONFIGURAÇÕES
+========================================= */
+
+.configuracoes {
+    width: 360px;
+    max-width: 92%;
+
+    padding: 28px;
+}
+
+
+/* Cabeçalho */
+
+.config-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+}
+
+
+.config-header h1 {
+    margin: 0;
+
+    font-size: 28px;
+}
+
+
+.config-icon {
+    font-size: 28px;
+}
+
+
+/* Logo da configuração */
+
+.config-logo {
+    width: 80px;
+    height: 80px;
+
+    margin: 5px auto 18px;
+}
+
+
+/* Campos */
+
+.campo {
+    width: 100%;
+
+    text-align: left;
+
+    margin-bottom: 16px;
+}
+
+
+.campo label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+}
+
+
+.campo input {
+    width: 100%;
+    height: 44px;
+
+    padding: 0 13px;
+
+    border: 1px solid #CBD5E1;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background: #FFFFFF;
+
+    color: #1E293B;
+
+    font-size: 16px;
+}
+
+
+.campo input:focus {
+    border-color: #38BDF8;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(56, 189, 248, .15);
+}
+
+
+.campo input:disabled {
+    background: #E2E8F0;
+
+    color: #475569;
+
+    cursor: not-allowed;
+}
+
+
+/* Botões da configuração */
+
+.configuracoes button {
+    width: 100%;
+
+    min-height: 46px;
+
+    margin-top: 12px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    background: #38BDF8;
+
+    color: #FFFFFF;
+
+    font-size: 17px;
+
+    transition:
+        background .2s,
+        transform .15s;
+}
+
+
+.configuracoes button:hover {
+    background: #0EA5E9;
+}
+
+
+.configuracoes button:active {
+    transform: scale(.98);
+}
+
+
+/* Checkbox */
+
+.checkbox {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    margin: 18px 0 8px;
+
+    cursor: pointer;
+}
+
+
+.checkbox input {
+    width: 17px;
+    height: 17px;
+}
+
+
+.checkbox span {
+    font-size: 15px;
+}
+
+
+/* Versão */
+
+.versao {
+    display: block;
+
+    margin: 18px 0;
+
+    color: #CBD5E1;
+
+    font-size: 13px;
+
+    text-align: center;
+}
+
+
+/* Voltar */
+
+.btn-secundario {
+    background: #64748B !important;
+}
+
+
+.btn-secundario:hover {
+    background: #475569 !important;
+}
+
+
+/* Reset */
+
+.btn-reset {
+    background: #DC2626 !important;
+}
+
+
+.btn-reset:hover {
+    background: #B91C1C !important;
+}
+
+
+/* =========================================
+   TELA DE ENTRADA
+========================================= */
+
+.entrada {
+    width: 360px;
+    max-width: 92%;
+
+    padding: 28px;
+}
+
+
+/* Logo */
+
+.entrada-logo {
+    display: block;
+
+    width: 100px;
+    height: 100px;
+
+    object-fit: contain;
+
+    margin: 0 auto 8px;
+}
+
+
+/* Título */
+
+.entrada h1 {
+    margin: 0 0 24px;
+
+    color: #38BDF8;
+
+    font-size: 34px;
+
+    font-weight: 800;
+}
+
+
+/* Seja bem-vindo */
+
+.entrada h2 {
+    margin: 0 0 26px;
+
+    color: #FFFFFF;
+
+    font-size: 21px;
+}
+
+
+/* Seções */
+
+.entrada-secao {
+    width: 100%;
+
+    margin-bottom: 20px;
+}
+
+
+.entrada-secao label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    text-align: center;
+
+    color: #FFFFFF;
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   CAIXA / ADM
+========================================= */
+
+.tipos-dispositivo {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    width: 100%;
+}
+
+
+.tipo-card {
+    width: 100%;
+
+    height: 58px;
+
+    margin: 0;
+
+    padding: 0;
+
+    border: 2px solid #334155;
+
+    border-radius: 12px;
+
+    background: #243247;
+
+    color: #FFFFFF;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background .2s,
+        border-color .2s,
+        transform .15s;
+}
+
+
+.tipo-card:hover {
+    background: #2D3C52;
+}
+
+
+.tipo-card:active {
+    transform: scale(.98);
+}
+
+
+.tipo-card.selecionado {
+    background: #38BDF8;
+
+    border-color: #38BDF8;
+
+    color: #FFFFFF;
+}
+
+
+.tipo-titulo {
+    display: block;
+
+    line-height: 54px;
+}
+
+
+/* =========================================
+   NOME DO DISPOSITIVO
+========================================= */
+
+.entrada input {
+    width: 100%;
+
+    height: 48px;
+
+    padding: 0 14px;
+
+    border: 1px solid #64748B;
+
+    border-radius: 11px;
+
+    outline: none;
+
+    background: #FFFFFF;
+
+    color: #1E293B;
+
+    font-size: 16px;
+
+    text-align: center;
+}
+
+
+.entrada input::placeholder {
+    color: #64748B;
+}
+
+
+.entrada input:focus {
+    border-color: #38BDF8;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(56, 189, 248, .18);
+}
+
+
+/* =========================================
+   ENTRAR
+========================================= */
+
+.btn-entrar {
+    width: 100%;
+
+    height: 54px;
+
+    margin-top: 4px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background: #38BDF8;
+
+    color: #FFFFFF;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background .2s,
+        transform .15s;
+}
+
+
+.btn-entrar:hover {
+    background: #0EA5E9;
+}
+
+
+.btn-entrar:active {
+    transform: scale(.98);
+}
+
+
+.btn-entrar:disabled {
+    background: #64748B;
+
+    cursor: default;
+}
+
+
+/* =========================================
+   VERSÃO DA ENTRADA
+========================================= */
+
+.entrada .versao {
+    display: block;
+
+    margin-top: 18px;
+
+    color: #CBD5E1;
+
+    font-size: 13px;
+
+    text-align: center;
+}
+
+/* =========================================
+   AJUSTE FINAL DA CONFIGURAÇÃO
+========================================= */
+
+.configuracoes {
+    width: 360px;
+    max-width: 360px;
+
+    padding: 22px 28px;
+
+    margin: 0 auto;
+}
+
+
+.config-header {
+    margin-bottom: 6px;
+}
+
+
+.config-header h1 {
+    font-size: 27px;
+}
+
+
+.config-icon {
+    font-size: 25px;
+}
+
+
+.config-logo {
+    width: 65px;
+    height: 65px;
+
+    margin: 2px auto 12px;
+}
+
+
+.campo {
+    margin-bottom: 12px;
+}
+
+
+.campo label {
+    margin-bottom: 5px;
+
+    font-size: 14px;
+}
+
+
+.campo input {
+    height: 42px;
+
+    font-size: 15px;
+}
+
+
+.configuracoes button {
+    min-height: 44px;
+
+    margin-top: 10px;
+
+    padding: 10px;
+
+    font-size: 16px;
+}
+
+
+.checkbox {
+    margin: 14px 0 6px;
+}
+
+
+.checkbox span {
+    font-size: 14px;
+}
+
+
+.versao {
+    margin: 14px 0;
+
+    font-size: 12px;
+}

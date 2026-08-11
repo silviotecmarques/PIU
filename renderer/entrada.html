@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>PIU!</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+<body>
+
+<div class="container entrada">
+
+    <img
+        class="entrada-logo"
+        src="img/logo.png"
+        alt="PIU!"
+    >
+
+    <h1>PIU!</h1>
+
+
+    <h2>
+        Seja bem-vindo!
+    </h2>
+
+
+    <div class="entrada-secao">
+
+        <label>
+            Tipo do dispositivo
+        </label>
+
+
+        <div class="tipos-dispositivo">
+
+            <button
+                type="button"
+                id="btnCaixa"
+                class="tipo-card selecionado"
+            >
+
+                <span class="tipo-titulo">
+                    CAIXA
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                id="btnADM"
+                class="tipo-card"
+            >
+
+                <span class="tipo-titulo">
+                    ADM
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="entrada-secao">
+
+        <label for="nome">
+            Nome do dispositivo
+        </label>
+
+
+        <input
+            id="nome"
+            type="text"
+            placeholder="Ex: Caixa Frente"
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <button
+        id="btnEntrar"
+        class="btn-entrar"
+    >
+        ENTRAR
+    </button>
+
+
+    <span class="versao">
+        PIU! v1.0.0
+    </span>
+
+</div>
+
+
+<script src="js/entrada.js"></script>
+
+</body>
+
+</html>
