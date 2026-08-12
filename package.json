@@ -1,6 +1,6 @@
 {
   "name": "piu",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Sistema Inteligente de Chamados",
   "main": "electron/main.js",
   "author": "Silvio Ferreira Marques",
